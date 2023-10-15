@@ -1,8 +1,9 @@
 const routers=require("express").Router();
 const BookmarksController=require("../controllers/bookmarks");
+const { verifyAndAuthorizeToken } = require("../middlewares/verifytoken");
 
 //create BookMark
-routers.post('/createBookmark',BookmarksController.createBookmark);
+routers.post('/createBookmark',verifyAndAuthorizeToken,BookmarksController.createBookmark);
 
 
 //detele bookmark
