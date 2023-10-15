@@ -9,7 +9,7 @@ module.exports = {
             if (!job) {
                 return res.status(404).json("Job does not exist.");
             }
-            const newBook = new BookMark({ job: job, userId: req.body.id });
+            const newBook = new BookMark({ job: job, userId: req.user.id });
             const savedBookmark=await newBook.save();
             const {__v,createdAt,updatedAt,...newBookmarInfo}=savedBookmark._doc;
             res.status(200).json(newBookmarInfo);
