@@ -5,7 +5,7 @@ module.exports = {
     createBookmark: async (req, res) => {
         const jobId = req.body.job;
         try {
-            const job = await job.findById(jobId);
+            const job = await Job.findById(jobId);
             if (!job) {
                 return res.status(404).json("Job does not exist.");
             }
