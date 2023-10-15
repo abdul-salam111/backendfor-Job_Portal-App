@@ -27,7 +27,7 @@ app.use("/api/jobs", jobRouter);
 app.use("/api/bookmarks", bookmarkRouter);
 
 // app.get("/api/get", (req, res) => res.send("hello Abdul!"))
-app.listen(5000, console.log("connected at 5000"));
+app.listen(process.env.PORT, console.log("connected at 5000"));
 
 
 
