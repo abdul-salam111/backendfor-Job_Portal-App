@@ -55,17 +55,17 @@ module.exports = {
             const results = await Job.aggregate(
                 [
                     {
-                        $search: {
-                            index: "jobsearch",
-                            text: {
-                                query: req.params.key,
-                                path: {
-                                    wildcard: "*"
-                                }
-                            }
+                      $search: {
+                        index: "jobSearch",
+                        text: {
+                          query:req.params.key,
+                          path: {
+                            wildcard: "*"
+                          }
                         }
+                      }
                     }
-                ]
+                  ]
             );
             res.status(200).json(results);
         } catch (error) {
