@@ -22,26 +22,35 @@ module.exports = {
     loginUser: async (req, res) => {
         try {
             const user = await User.findOne({ useremail: req.body.useremail });
-            !user && res.status(401).json("user not found")
+    
+            if (!user) {
+                // Return a 401 Unauthorized response if the user is not found
+                return res.status(401).json("User not found");
+            }
+    
             const decryptedPassword = CryptoJS.AES.decrypt(user.password, process.env.SECRET);
             const depassword = decryptedPassword.toString(CryptoJS.enc.Utf8);
-            depassword !== req.body.password && res.status(401).json("Wrong Password");
-            const { password, __v, createdAt,updatedAt, ...others}=user._doc;
-           const userToken= jwt.sign({
-            id:user._id,
-            isAdmin:user.isAdmin,
-            isAgent:user.isAgent,
-
-           },process.env.JWTSEC,{
-                expiresIn:"21d"
-           });
-           res.status(200).json({...others,userToken});
     
-
+            if (depassword !== req.body.password) {
+                // Return a 401 Unauthorized response if the password is wrong
+                return res.status(401).json("Wrong Password");
+            }
+    
+            const { password, __v, createdAt, updatedAt, ...others } = user._doc;
+            const userToken = jwt.sign({
+                id: user._id,
+                isAdmin: user.isAdmin,
+                isAgent: user.isAgent,
+            }, process.env.JWTSEC, {
+                expiresIn: "21d"
+            });
+    
+            res.status(200).json({ ...others, userToken });
         } catch (error) {
-            res.status(500).json(error.message)
+            res.status(500).json(error.message);
         }
     }
+    
 
 }
 
