@@ -18,13 +18,11 @@ module.exports = {
         }
     },
 
-    //login user
     loginUser: async (req, res) => {
         try {
             const user = await User.findOne({ useremail: req.body.useremail });
     
             if (!user) {
-                // Return a 401 Unauthorized response if the user is not found
                 return res.status(401).json("User not found");
             }
     
@@ -32,7 +30,6 @@ module.exports = {
             const depassword = decryptedPassword.toString(CryptoJS.enc.Utf8);
     
             if (depassword !== req.body.password) {
-                // Return a 401 Unauthorized response if the password is wrong
                 return res.status(401).json("Wrong Password");
             }
     
@@ -47,9 +44,11 @@ module.exports = {
     
             res.status(200).json({ ...others, userToken });
         } catch (error) {
+            // Handle errors gracefully and send an error response
             res.status(500).json(error.message);
         }
     }
+    
     
 
 }
