@@ -18,7 +18,10 @@ mongoose.connect(process.env.MONGOURL).then(() => console.log("Db connected")).c
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    allowedHeaders: 'X-Requested-With, Content-Type, auth-token',
+}));
 
 app.use("/api/", authRouter);
 
