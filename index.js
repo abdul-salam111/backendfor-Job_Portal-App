@@ -6,6 +6,7 @@ const userRouter = require('./routes/user');
 const jobRouter = require('./routes/jobs');
 const bookmarkRouter = require('./routes/bookmarks');
 const dotenv = require('dotenv');
+const cors = require("cors");
 
 
 
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGOURL).then(() => console.log("Db connected")).c
 
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/", authRouter);
 
