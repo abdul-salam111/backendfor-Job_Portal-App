@@ -8,8 +8,7 @@ module.exports = {
             username: req.body.username,
             useremail: req.body.useremail,
             password: CryptoJS.AES.encrypt(req.body.password, process.env.SECRET).toString(),
-            location:req.body.location,
-            skills:req.body.skills
+        
         })
         try {
             const savedUser = await newUser.save();
