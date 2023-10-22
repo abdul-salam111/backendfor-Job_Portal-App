@@ -7,10 +7,13 @@ const verifyToken = (req, res, next) => {
     const authHeader = req.headers.token;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
-        jwt.verify(token, process.env.JWTSEC, async (err, user) => {
-            if (err) res.status(403).json("invalid token");
+        jwt.verify(token, process.env.JWTSEC, (err, user) => {
+            if (err) {
+                // Handle the token verification error here
+                return res.status(403).json("Invalid token");
+            }
+            // Set req.user only if the token is successfully verified
             req.user = user;
-        
             next();
         });
     } else {
