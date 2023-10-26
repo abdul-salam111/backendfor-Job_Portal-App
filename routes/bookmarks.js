@@ -3,7 +3,7 @@ const BookmarksController=require("../controllers/bookmarks");
 const { verifyAndAuthorizeToken } = require("../middlewares/verifytoken");
 
 //create BookMark
-routers.post('/createBookmark',verifyAndAuthorizeToken,BookmarksController.createBookmark);
+routers.post('/createBookmark',BookmarksController.createBookmark);
 
 //detele bookmark
 routers.delete('/deleteBookmark/:id',BookmarksController.deleteBookmark);
